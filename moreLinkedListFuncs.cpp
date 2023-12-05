@@ -11,7 +11,9 @@ void addIntToEndOfList(LinkedList *list, int value)
   // TODO:
   // (1) Allocate a new node.  p will point to it.
 
-  p = NULL; // THIS IS PLACE-HOLDER LINE OF CODE.  DELETE IT AND REPLACE IT.
+  p = new Node();
+  p->data = value;
+  p->next = NULL;
 
   // (2) Set p's data field to the value passed in
 
@@ -19,8 +21,8 @@ void addIntToEndOfList(LinkedList *list, int value)
 
   if (list->head == NULL)
   {
-
-    // (4) Make both head and tail of this list point to p
+    list->head = p;
+    list->tail = p;
   }
   else
   {
@@ -30,6 +32,9 @@ void addIntToEndOfList(LinkedList *list, int value)
     // (5) The current node at the tail? Make it point to p instead of NULL
 
     // (6) Make the tail of the list be p now.
+
+    list->tail->next = p;
+    list->tail = p;
   }
 }
 
@@ -42,6 +47,20 @@ void addIntToStartOfList(LinkedList *list, int value)
   // consider all edge cases such as when list->head is or is not null AND
   // consider all edge cases such as when list->tail is or is not null.
   // Visualizing the problem with a box and pointer diagram can help.
+
+  Node* p = new Node();
+  p->data = value;
+
+  if(list->head==NULL)
+  {
+    p->next = NULL;
+    list->head = p;
+    list->tail = p;
+    return;
+  }
+  
+  p->next = list->head;
+  list->head = p;
 }
 
 // list: ptr to a linked list of Node (each with int data, and Node * next)
@@ -62,7 +81,20 @@ Node *pointerToMax(LinkedList *list)
   // TODO: Insert code here to calculate and return
   //   value of pointer to max element (first one if ties.)
 
-  return NULL; // STUB!  Replace this line with correct code
+  Node* max = list->head;
+  Node* temp = list->head->next;
+
+  while(temp != NULL)
+  {
+    if(temp->data > max->data)
+    {
+      max = temp;
+    }
+
+    temp = temp->next;
+  } 
+
+  return max;
 }
 
 // list: ptr to a linked list of Node (each with int data, and Node * next)
@@ -85,7 +117,20 @@ Node *pointerToMin(LinkedList *list)
   //   value of pointer to min element
   //   (first one such value that occurs if there are ties.)
 
-  return NULL; // STUB!  Replace this line with correct code
+  Node* min = list->head;
+  Node* temp = list->head->next;
+
+  while(temp != NULL)
+  {
+    if(temp->data < min->data)
+    {
+      min = temp;
+    }
+
+    temp = temp->next;
+  } 
+
+  return min;
 }
 
 // list: ptr to a linked list of Node (each with int data, and Node * next)
@@ -105,7 +150,20 @@ int largestValue(LinkedList *list)
   // TODO: Insert code here to calculate and return
   //   largest value in list (which may not be unique).
 
-  return -42; // STUB!  Replace this line with correct code
+  Node* temp = list->head->next;
+  int max = list->head->data;
+
+  while(temp != NULL)
+  {
+    if(temp->data > max)
+    {
+      max = temp->data;
+    }
+
+    temp = temp->next;
+  } 
+
+  return max;
 }
 
 // list: ptr to a linked list of Node (each with int data, and Node * next)
@@ -124,7 +182,20 @@ int smallestValue(LinkedList *list)
   // TODO: Insert code here to calculate and return
   //   smallest value in list (which may not be unique).
 
-  return -42; // STUB!  Replace this line with correct code
+  Node* temp = list->head->next;
+  int min = list->head->data;
+
+  while(temp != NULL)
+  {
+    if(temp->data < min)
+    {
+      min = temp->data;
+    }
+
+    temp = temp->next;
+  } 
+
+  return min;
 }
 
 // list: ptr to a linked list of Node (each with int data, and Node * next)
@@ -143,5 +214,14 @@ int sum(LinkedList *list)
   // TODO: Insert code here to calculate and return
   //   sum of all values in list (0 if there are none).
 
-  return -42; // STUB!  Replace this line with correct code
+  Node* temp = list->head->next;
+  int sum = list->head->data;
+
+  while(temp != NULL)
+  {
+    sum+=temp->data;
+    temp = temp->next;
+  } 
+
+  return sum;
 }
